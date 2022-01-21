@@ -7,19 +7,20 @@
     let currentIndex = 0;
     $: previousQuestion = currentIndex === 0 ? undefined : questions[currentIndex-1];
     $: currentQuestion = currentIndex < questions.length ? questions[currentIndex] : undefined;
-    $: answers = currentQuestion?.translation.map(() => "")
+    let answers = currentQuestion?.translation.map(() => "") ?? []
     let answerChecks = [];
     let points = 0;
     let gameEnded = false;
 
     function handleEnter(event) {
-        if (event.which === 13) {
+        if (event.charCode === 13) {
             submitAnswer();
         }
     }
 
     function submitAnswer() {
-        answerChecks = answers.map((answer, index) => currentQuestion.translation[index] === answer);
+        answerChecks =  currentQuestion.translation
+            .map((translation, index) => answers[index] === translation);
         if (answerChecks.every(check => check)) {
             passQuestion(true);
         }
@@ -30,6 +31,7 @@
         }
         currentIndex = currentIndex + 1;
         answerChecks = [];
+        answers = [];
         if (currentIndex >= questions.length) {
             gameEnded = true;
         }
