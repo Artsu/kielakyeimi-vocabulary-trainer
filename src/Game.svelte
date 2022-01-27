@@ -29,9 +29,9 @@
 
     function wordComparison(word1 = "", word2 = "") {
         function normalize(word: string) {
-            return word.toLowerCase().replace(/\?/g, "")
+            return word.toLowerCase().replace(/\?/g, "").trim()
         }
-        return normalize(word1) === normalize(word2);
+        return word2.split(",").some(w2 => normalize(word1) === normalize(w2))
     }
 
     function submitAnswer() {
@@ -51,7 +51,6 @@
         answers = [];
         if (currentIndex >= questions.length) {
             gameEnded = true;
-        } else {
         }
     }
 
@@ -59,6 +58,7 @@
         gameEnded = false;
         points = 0;
         currentIndex = 0;
+        questions = shuffleArray(questions)
     }
 
     function returnToMainMenu() {

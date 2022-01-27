@@ -1,4 +1,5 @@
 import pitta4 from "./exercises/pitta4";
+import pitta5 from "./exercises/pitta5";
 
 export interface Exercise {
   id: number;
@@ -12,6 +13,6 @@ export interface Exercise {
   }[];
 }
 
-const exercises: Exercise[] = [pitta4];
+const exercises: Exercise[] = [pitta4, pitta5];
 
 export default exercises;

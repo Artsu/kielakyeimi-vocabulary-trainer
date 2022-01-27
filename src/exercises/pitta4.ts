@@ -102,7 +102,7 @@ export default {
       word: "kauppa",
       translation: [
         { word: "kävppi", variety: "perusm." },
-        { word: "käävpi", variety: "gen., akk." },
+        { word: "käävpi", variety: "gen., akkus." },
       ],
     },
     {
@@ -113,7 +113,7 @@ export default {
       word: "kala",
       translation: [
         { word: "kyeli", variety: "perusm." },
-        { word: "kyele", variety: "gen., akk." },
+        { word: "kyele", variety: "gen., akkus." },
       ],
     },
   ],
