@@ -2,13 +2,22 @@
     import { slide } from 'svelte/transition';
     import {GameState, gameState, selectedExercises} from "./state";
     import exercises from "./exercises";
+    import {shuffleArray} from "./randomizer";
 
-    let questions = exercises.filter(e => $selectedExercises.includes(e.id)).flatMap(exercise => exercise.questions)
+    let partialQuestions = exercises
+        .filter(e => $selectedExercises.includes(e.id))
+        .flatMap(exercise => exercise.questions);
+    let questions = shuffleArray(partialQuestions.concat(partialQuestions.map(question => ({
+        word: question.translation.map(t => t.word).join(", "),
+        translation: [{word: question.word}],
+    }))));
+
     let currentIndex = 0;
     $: previousQuestion = currentIndex === 0 ? undefined : questions[currentIndex-1];
     $: currentQuestion = currentIndex < questions.length ? questions[currentIndex] : undefined;
     let answers = currentQuestion?.translation.map(() => "") ?? []
     let answerChecks = [];
+    let previousAnswerChecks = [];
     let points = 0;
     let gameEnded = false;
 
@@ -18,9 +27,16 @@
         }
     }
 
+    function wordComparison(word1 = "", word2 = "") {
+        function normalize(word: string) {
+            return word.toLowerCase().replace(/\?/g, "")
+        }
+        return normalize(word1) === normalize(word2);
+    }
+
     function submitAnswer() {
-        answerChecks =  currentQuestion.translation
-            .map((translation, index) => answers[index] === translation);
+        answerChecks = currentQuestion.translation
+            .map((translation, index) => wordComparison(answers[index], translation.word));
         if (answerChecks.every(check => check)) {
             passQuestion(true);
         }
@@ -30,10 +46,12 @@
             points = points + 1;
         }
         currentIndex = currentIndex + 1;
+        previousAnswerChecks = answerChecks;
         answerChecks = [];
         answers = [];
         if (currentIndex >= questions.length) {
             gameEnded = true;
+        } else {
         }
     }
 
@@ -52,7 +70,12 @@
     {#if previousQuestion}
         {#key previousQuestion}
             <div class="row previous-question" transition:slide|local="{{duration: 150}}">
-                <div class="current-word">{previousQuestion.word}</div><div class="separator">-</div>{previousQuestion.translation.join(", ")}
+                <div class="current-word">{previousQuestion.word}</div><div class="separator">-</div>
+                {#each previousQuestion.translation as translation, index (index)}
+                    <span class="answer" class:correct={previousAnswerChecks[index]}>
+                        {previousQuestion.translation[index].word}{index === previousQuestion.translation.length -1 ? "" : ","}&nbsp;
+                    </span>
+                {/each}
             </div>
         {/key}
     {/if}
@@ -61,7 +84,12 @@
             <div class="row" class:active={true} transition:slide|local="{{duration: 150 }}" >
                 <div class="current-word">{currentQuestion.word}</div><div class="separator">-</div>
                 {#each currentQuestion.translation as translation, index (index)}
-                    <input bind:value={answers[index]} class:incorrect={answerChecks[index] === false} type="text" on:keypress={handleEnter} />
+                    <input bind:value={answers[index]}
+                           placeholder={translation.variety}
+                           class:incorrect={answerChecks[index] === false}
+                           type="text" on:keypress={handleEnter}
+                           autofocus="{index === 0}"
+                    />
                 {/each}
                 <div class="row-buttons">
                     <button class="submit-answer" on:click={submitAnswer}>Tarkista</button>
@@ -106,6 +134,14 @@
     .current-word {
         margin: 0 0 10px;
         font-weight: bold;
+    }
+
+    .answer {
+        color: #e73757;
+    }
+
+    .answer.correct {
+        color: #64e737;
     }
 
     .separator {
