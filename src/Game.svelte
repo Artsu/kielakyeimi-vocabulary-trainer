@@ -27,11 +27,19 @@
         }
     }
 
-    function wordComparison(word1 = "", word2 = "") {
+    function wordComparison(userInput = "", correctAnswer = "") {
         function normalize(word: string) {
-            return word.toLowerCase().replace(/\?/g, "").trim()
+            return word
+                .toLowerCase()
+                .replace(/\?/g, "")
+                .replace(/j̣/g, "j")
+                .replace(/ṛ/g, "r")
+                .replace(/ṿ/g, "v")
+                .replace(/ḷ/g, "l")
+                .replace(/ṃ/g, "m")
+                .trim()
         }
-        return word2.split(",").some(w2 => normalize(word1) === normalize(w2))
+        return correctAnswer.split(",").some(w2 => normalize(userInput) === normalize(w2))
     }
 
     function submitAnswer() {
@@ -110,6 +118,13 @@
 </div>
 
 <style>
+    /*@font-face {*/
+    /*    font-family: 'NotoSans';*/
+    /*    font-style: normal;*/
+    /*    font-weight: 400;*/
+    /*    src: local('NotoSans'), url("/public/Noto_Sans/NotoSans-Regular.ttf") format('ttf');*/
+    /*}*/
+
     .main-game {
         max-width: 800px;
         margin: auto;
