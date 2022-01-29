@@ -46,7 +46,7 @@ export default {
       word: "tulla",
       translation: [
         { word: "puáttiđ", variety: "perusm." },
-        { word: "puáđam", variety: "minä" },
+        { word: "puáđám", variety: "minä" },
         { word: "puátá", variety: "hän" },
       ],
     },
@@ -109,7 +109,7 @@ export default {
       translation: [{ word: "vala" }],
     },
     {
-      word: "jaksaa",
+      word: "jaksaa (kantaa)",
       translation: [
         { word: "kostâdiđ", variety: "perusm." },
         { word: "kostâdâm", variety: "minä" },
@@ -181,7 +181,7 @@ export default {
       word: "poika",
       translation: [
         { word: "alge", variety: "perusm." },
-        { word: "alge", variety: "gen., akkus." },
+        { word: "a'lge", variety: "gen., akkus." },
       ],
     },
     {
@@ -236,12 +236,8 @@ export default {
       translation: [{ word: "jo" }],
     },
     {
-      word: "puá'ṛásuboh",
-      translation: [{ word: "vanhemmat" }],
-    },
-    {
-      word: "puárásuboh",
-      translation: [{ word: "vanhemmat" }],
+      word: "vanhemmat (adj.)",
+      translation: [{ word: "puá'ṛásuboh" }],
     },
     {
       word: "vanha",
@@ -252,8 +248,8 @@ export default {
       ],
     },
     {
-      word: "ko",
-      translation: [{ word: "kuin" }],
+      word: "kuin",
+      translation: [{ word: "ko" }],
     },
     {
       word: "jos",
@@ -291,11 +287,11 @@ export default {
       translation: [{ word: "kal" }],
     },
     {
-      word: "pärjäämme",
+      word: "pärjäämme (kaksikko)",
       translation: [{ word: "pitteen" }],
     },
     {
-      word: "pärjätä",
+      word: "pärjätä (jollekin)",
       translation: [
         { word: "pitteeđ", variety: "perusm." },
         { word: "piđám", variety: "minä" },

@@ -31,7 +31,9 @@
         function normalize(word: string) {
             return word
                 .toLowerCase()
+                .replace(/ \(.+\)/g, "")
                 .replace(/\?/g, "")
+                .replace(/'/g, "")
                 .replace(/j̣/g, "j")
                 .replace(/ṛ/g, "r")
                 .replace(/ṿ/g, "v")

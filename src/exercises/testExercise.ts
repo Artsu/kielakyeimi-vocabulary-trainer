@@ -2,9 +2,13 @@ export default {
   id: 666,
   label: "for testing only",
   questions: [
+    // {
+    //   word: "testi alapiste j",
+    //   translation: [{ word: "j̣ii", variety: "perusm." }],
+    // },
     {
-      word: "testi alapiste j",
-      translation: [{ word: "j̣ii", variety: "perusm." }],
+      word: "pärjäämme (kaksikko)",
+      translation: [{ word: "pitteen" }],
     },
   ],
 };
