@@ -37,11 +37,11 @@ jobs:
           node-version: 16
       - run: yarn install --frozen-lockfile
       - run: yarn build
+      - run: rm .gitignore
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          # Upload entire repository
-          path: './'
+          path: './public'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
